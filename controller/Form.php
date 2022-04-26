@@ -13,7 +13,7 @@ class Form
   }
   public function salvar()
   {
-    if (isset($_POST['exercício']) && isset($_POST['tempo']) && isset($_POST['descanso']))
+    if (isset($_POST['exercicio']) && isset($_POST['tempo']) && isset($_POST['descanso'])){
       try {
         $conexao = Transaction::get();
         $academia = new Crud('academia');
@@ -24,6 +24,7 @@ class Form
       } catch (Exception $e) {
         echo $e->getMessage();
       }
+    }
   }
   public function getMessage()
   {
