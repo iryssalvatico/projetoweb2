@@ -9,6 +9,10 @@ class Form
   public function controller()
   {
     $form = new Template("view/form.html");
+    $form->set("id", "");
+    $form->set("exercicio", "");
+    $form->set("tempo", "");
+    $form->set("descanso", "");
     $this->message = $form->saida();
   }
   public function salvar()
@@ -20,7 +24,30 @@ class Form
         $exercicio = $conexao->quote($_POST['exercicio']);
         $tempo = $conexao->quote($_POST['tempo']);
         $descanso = $conexao->quote($_POST['descanso']);
-        $resultado = $academia->insert("exercicio,tempo,descanso", "$exercicio,$tempo,$descanso");
+        if (empty($_POST["id"])) {
+          $academia->insert("exercicio,tempo,descanso", "$exercicio,$tempo,$descanso");
+        } else {
+          $id = $conexao->quote($_POST['id']);
+          $academia->update("exercicio=$exercicio,tempo=$tempo,descanso=$descanso", "id=$id");
+        }
+      } catch (Exception $e) {
+        echo $e->getMessage();
+      }
+    }
+  }
+  public function editar()
+  {
+    if (isset($_GET['id'])) {
+      try {
+        $conexao = Transaction::get();
+        $id = $conexao->quote($_GET['id']);
+        $academia = new Crud('academia');
+        $resultado = $academia->select("*", "id=$id");
+        $form = new Template("view/form.html");
+        foreach ($resultado[0] as $cod => $valor) {
+          $form->set($cod, $valor);
+        }
+        $this->message = $form->saida();
       } catch (Exception $e) {
         echo $e->getMessage();
       }

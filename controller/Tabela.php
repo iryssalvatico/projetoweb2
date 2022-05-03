@@ -17,6 +17,19 @@ class Tabela
       $this->message = $tabela->saida();
     }
   }
+  public function remover()
+  {
+    if (isset($_GET["id"])) {
+      try {
+        $conexao = Transaction::get();
+        $id = $conexao->quote($_GET["id"]);
+        $academia = new Crud("academia");
+        $academia->delete("id=$id");
+      } catch (Exception $e) {
+        echo $e->getMessage();
+      }
+    }
+  }
   public function getMessage()
   {
     return $this->message;
