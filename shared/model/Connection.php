@@ -9,7 +9,7 @@ final class Connection
     $type = "mysql";
     $user = "alunos";
     $pass = "cefetmg";
-    $name = "irsweb2";
+    $name = "irysweb2";
     $host = "localhost";
     switch ($type) {
       case 'pgsql':

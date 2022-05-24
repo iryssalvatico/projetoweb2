@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+      "naumovs.color-highlight",
+      "knisterpeter.vscode-github",
+      "ritwickdey.liveserver",
+      "pkief.material-icon-theme",
+      "christian-kohler.path-intellisense",
+      "bmewburn.vscode-intelephense-client",
+      "esbenp.prettier-vscode"
+    ]
+  }

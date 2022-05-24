@@ -3,40 +3,43 @@
 spl_autoload_extensions('.php');
 function classLoader($class)
 {
-  $nomeArquivo = $class . ".php";
+  $nomeArquivo = $class . "php";
   $pastas = array(
     "shared/controller",
-    "shared/model",
-    "public/controller",
-    "public/model"
+    "sahred/model",
+    "restrict/controller",
+    "restrict/model"
   );
-  foreach ($pastas as $pasta){
+  foreach ($pastas as $pasta) {
     $arquivo = "{$pasta}/{$nomeArquivo}";
-    if(file_exists($arquivo)) {
-      require_once $arquivo;
+    if (file_exists($arquivo)) {
+      require_once($arquivo);
     }
-  }  
+  }
 }
-
-
 spl_autoload_register("classLoader");
 
 Session::startSession();
-Session::freeSession();
+if (!Session::getValue('id')) {
+  header("Location:" . Aplicacao::$app . "/");
+}
 
 // Front Controller
 class Aplicacao
 {
-  static private $app = "/irysweb2";
+  static public $app = "/irysweb2";
+  static private $uri = "/irysweb2/restrita.php";
   public static function run()
   {
-    $layout = new Template('public/view/layout.html');
-    $layout->set("uri", self::$app);
+    $layout = new Template('restrict/view/layout.html');
+    $layout->set("uri", self::$uri);
+    $layout->set("path", self::$path);
     if (isset($_GET["class"])) {
       $class = $_GET["class"];
     } else {
-      $class = "Login";
+      $class = "Inicio";
     }
+
     if (isset($_GET["method"])) {
       $method = $_GET["method"];
     } else {
@@ -52,6 +55,7 @@ class Aplicacao
       }
       $layout->set('conteudo', $pagina->getMessage());
     }
+    $layout->set("nome", Session::getValue("nome"));
     echo $layout->saida();
   }
 }
