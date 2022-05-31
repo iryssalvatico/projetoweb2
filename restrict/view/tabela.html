@@ -1,39 +1,39 @@
 <table>
-    <thead>
-      <tr>
-        <th>Exercício</th>
-        <th>Tempo</th>
-        <th>Descanso</th>
-        <th>Editar</th>
-        <th>Remover</th>
-      </tr>
-    </thead>
-    <tbody>
-      {linha}
-      <tr>
-        <td>{exercicio}</td>
-        <td>{tempo}</td>
-        <td>{descanso}</td>
-        <td>
-          <button
+  <thead>
+    <tr>
+      <th>Exercício</th>
+      <th>Tempo</th>
+      <th>Descanso</th>
+      <th>Editar</th>
+      <th>Remover</th>
+    </tr>
+  </thead>
+  <tbody>
+    {linha}
+    <tr>
+      <td>{exercicio}</td>
+      <td>{tempo}</td>
+      <td>{descanso}</td>
+      <td>
+        <button
           class="edit"
           type="button"
           onclick="location.href='?class=Form&method=editar&id={id}'"
         >
           Editar
         </button>
-        </td>
-        <td>
-          <button
-          class="remove"
+      </td>
+      <td>
+        <button
+          class = "remove"
           type="button"
           onclick="if(confirm('Deseja realmente remover?'))
             location.href='?class=Tabela&method=remover&id={id}'"
         >
           Remover
         </button>
-        </td>
-      </tr>
-      {/linha}
-    </tbody>
-  </table>
+      </td>
+    </tr>
+    {/linha}
+  </tbody>
+</table>
